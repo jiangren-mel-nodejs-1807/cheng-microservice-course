@@ -1,13 +1,16 @@
-import {ApplicationConfig} from '@loopback/core';
-import {RestApplication, RestServer, RestBindings} from '@loopback/rest';
-import {MySequence} from './sequence';
+import { ApplicationConfig } from '@loopback/core';
+import { RestApplication, RestServer, RestBindings } from '@loopback/rest';
+import { MySequence } from './sequence';
 
 /* tslint:disable:no-unused-variable */
 // Binding and Booter imports are required to infer types for BootMixin!
-import {BootMixin, Booter, Binding} from '@loopback/boot';
+import { BootMixin, Booter, Binding } from '@loopback/boot';
 /* tslint:enable:no-unused-variable */
+import { RepositoryMixin } from '@loopback/repository';
 
-export class ChengMicroserviceCourseApplication extends BootMixin(RestApplication) {
+export class ChengMicroserviceCourseApplication extends BootMixin(
+  RepositoryMixin(RestApplication)
+) {
   constructor(options?: ApplicationConfig) {
     super(options);
 
