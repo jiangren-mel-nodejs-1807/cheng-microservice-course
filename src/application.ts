@@ -1,10 +1,10 @@
 import { ApplicationConfig } from '@loopback/core';
-import { RestApplication, RestServer, RestBindings } from '@loopback/rest';
+import { RestApplication, RestServer } from '@loopback/rest';
 import { MySequence } from './sequence';
 
 /* tslint:disable:no-unused-variable */
 // Binding and Booter imports are required to infer types for BootMixin!
-import { BootMixin, Booter, Binding } from '@loopback/boot';
+import { BootMixin } from '@loopback/boot';
 /* tslint:enable:no-unused-variable */
 import { RepositoryMixin } from '@loopback/repository';
 
@@ -33,7 +33,6 @@ export class ChengMicroserviceCourseApplication extends BootMixin(
     await super.start();
 
     const server = await this.getServer(RestServer);
-    const port = await server.get(RestBindings.PORT);
     const swaggerConsole = 'https://loopback.io/api-explorer/?url=' + server.url + '/openapi.json';
     console.log(`Https Server is running at ${server.url}`);
     console.log(`Try ${server.url}/ping`);
