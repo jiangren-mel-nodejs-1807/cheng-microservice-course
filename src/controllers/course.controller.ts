@@ -5,9 +5,10 @@ import {
   get,
   patch,
   del,
-  requestBody
+  requestBody,
+  HttpErrors
 } from '@loopback/rest';
-import { Course } from '../models';
+import { Course, StudentRef } from '../models';
 import { CourseRepository } from '../repositories';
 
 export class CourseController {
@@ -62,5 +63,27 @@ export class CourseController {
   @del('/courses/{id}')
   async deleteById(@param.path.number('id') id: number): Promise<boolean> {
     return await this.courseRepository.deleteById(id);
+  }
+
+  @post('/courses/{id}/enrol')
+  async enrol(@param.path.number('id') id: number, @requestBody() obj: StudentRef)
+    : Promise<Course> {
+    let existedStudents = await this.courseRepository.students(id).find({
+      where: {
+        id: obj.id
+      }
+    });
+    if (existedStudents.length === 0) {
+      return await this.courseRepository.students(id).create(obj);
+    }
+    throw new HttpErrors.BadRequest(`This student has already enrolled.`);
+  }
+
+  @get('/courses/{id}/students')
+  async findStudents(
+    @param.path.number('id') id: number,
+    @param.query.string('filter') filter?: Filter
+  ): Promise<StudentRef[]> {
+    return await this.courseRepository.students(id).find(filter);
   }
 }

@@ -1,6 +1,7 @@
 {
   "ids": {
-    "Course": 5
+    "Course": 5,
+    "StudentRef": 3
   },
   "models": {
     "Course": {
@@ -8,6 +9,10 @@
       "2": "{\"name\":\"destroy alderaan\",\"description\":\"Make sure there are no survivors left!\",\"id\":2}",
       "3": "{\"name\":\"terrorize senate\",\"description\":\"Tell them they're getting a budget cut.\",\"id\":3}",
       "4": "{\"name\":\"crush rebel scum\",\"description\":\"Every.Last.One.\",\"id\":4}"
+    },
+    "StudentRef": {
+      "1": "{\"id\":1,\"href\":\"string\",\"name\":\"string\",\"courseId\":0}",
+      "2": "{\"id\":2,\"href\":\"string\",\"name\":\"string\",\"courseId\":1}"
     }
   }
 }
