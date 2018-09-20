@@ -8,13 +8,15 @@ import {
   requestBody,
   HttpErrors
 } from '@loopback/rest';
-import { Course, StudentRef } from '../models';
-import { CourseRepository } from '../repositories';
+import { Course, StudentRef, Event } from '../models';
+import { CourseRepository, StudentRefRepository } from '../repositories';
 
 export class CourseController {
   constructor(
     @repository(CourseRepository)
     public courseRepository: CourseRepository,
+    @repository(StudentRefRepository)
+    public studentRefRepository: StudentRefRepository,
   ) { }
 
   @post('/courses')
@@ -85,5 +87,28 @@ export class CourseController {
     @param.query.string('filter') filter?: Filter
   ): Promise<StudentRef[]> {
     return await this.courseRepository.students(id).find(filter);
+  }
+
+  @post('/courses/client/listener')
+  async callback(@requestBody() obj: Event): Promise<any> {
+    let newStudent = obj.payload as StudentRef;
+    if (obj.type === 'StudentUpdateNotification') {
+      let foundedRecords = await this.studentRefRepository.find({
+        where: { studentId: newStudent.studentId }
+      });
+      console.log(`found ${foundedRecords.length}`);
+      for (let i = 0; i < foundedRecords.length; i++) {
+        let aStudent = foundedRecords[i];
+        let success = await this.studentRefRepository.updateById(aStudent.id, newStudent);
+        console.log(`${aStudent.studentId} ${success}`);
+      }
+      // let updatedRecords = await this.studentRefRepository.updateAll(newStudent, {
+      //   where: { studentId: newStudent.studentId }
+      // });
+      // if (updatedRecords > 0) {
+      //   return `${updatedRecords} records had been updated`;
+      // }
+    }
+    throw new HttpErrors.BadRequest(`No records updated`);
   }
 }

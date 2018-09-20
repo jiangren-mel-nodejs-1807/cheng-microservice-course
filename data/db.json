@@ -1,7 +1,7 @@
 {
   "ids": {
     "Course": 5,
-    "StudentRef": 3
+    "StudentRef": 5
   },
   "models": {
     "Course": {
@@ -11,8 +11,10 @@
       "4": "{\"name\":\"crush rebel scum\",\"description\":\"Every.Last.One.\",\"id\":4}"
     },
     "StudentRef": {
-      "1": "{\"id\":1,\"href\":\"string\",\"name\":\"string\",\"courseId\":0}",
-      "2": "{\"id\":2,\"href\":\"string\",\"name\":\"string\",\"courseId\":1}"
+      "1": "{\"id\":1,\"studentId\":\"1\",\"href\":\"h1\",\"name\":\"n1\",\"courseId\":0}",
+      "2": "{\"id\":2,\"studentId\":\"1\",\"href\":\"h1\",\"name\":\"n1\",\"courseId\":1}",
+      "3": "{\"id\":3,\"studentId\":\"1\",\"href\":\"h1\",\"name\":\"n1\",\"courseId\":1}",
+      "4": "{\"id\":4,\"studentId\":\"1\",\"href\":\"h1\",\"name\":\"n1\",\"courseId\":2}"
     }
   }
 }

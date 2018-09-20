@@ -12,6 +12,11 @@ export class StudentRef extends Entity {
   @property({
     type: 'string',
   })
+  studentId?: string;
+
+  @property({
+    type: 'string',
+  })
   href?: string;
 
   @property({
